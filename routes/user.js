@@ -34,9 +34,7 @@ router.post('/register',(req,res)=>{
 
 router.get('/google',passport.authenticate('google',{
     scope: ['profile']
-}),(req,res)=>{
-    res.header('Access-Control-Allow-Origin', '*');
-});
+}));
 
 router.get('/google/redirect',passport.authenticate('google'),(req,res)=>{
     res.send("you loggin google")
