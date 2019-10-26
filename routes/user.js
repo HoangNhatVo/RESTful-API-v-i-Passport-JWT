@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken');
-const passport = require('passport')
+const passport = require('passport');
 const mongoose  = require('mongoose');
 const User= mongoose.model('User')
 
@@ -32,4 +32,11 @@ router.post('/register',(req,res)=>{
     })
   })
 
+router.get('/google',passport.authenticate('google',{
+    scope: ['profile']
+}));
+
+router.get('/google/redirect',passport.authenticate('google'),(req,res)=>{
+    res.send("you loggin google")
+});
 module.exports = router;

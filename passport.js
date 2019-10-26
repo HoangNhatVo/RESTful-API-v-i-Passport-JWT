@@ -4,6 +4,7 @@ const passportJWT = require("passport-jwt");
 const ExtractJWT = passportJWT.ExtractJwt;
 
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy =  require('passport-google-oauth20');
 const JWTStrategy   = passportJWT.Strategy;
 const mongoose  = require('mongoose');
 const User= mongoose.model('User')
@@ -53,3 +54,13 @@ passport.use(new JWTStrategy({
             });
     }
 ));
+
+passport.use(
+    new GoogleStrategy({
+        callbackURL:'/user/google/redirect',
+        clientID:'583261927649-u20u1jiuefhor9nvjgjrkghr1p667v9t.apps.googleusercontent.com',
+        clientScret:'hmi5kLeHQHX4NUPik89fAhhE'
+    },()=>{
+        console.log("passport callback")
+    })
+)
