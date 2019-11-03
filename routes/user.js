@@ -33,10 +33,16 @@ router.post('/register',(req,res)=>{
   })
 
 router.get('/google',passport.authenticate('google',{
-    scope: ['profile']
+    scope: ['profile','email']
 }));
 
-router.get('/google/redirect',passport.authenticate('google'),(req,res)=>{
-    res.send("you loggin google")
-});
+router.get(
+	'/google/redirect',
+	passport.authenticate("google", { failureRedirect: "/", session: false }),
+	function(req, res) {
+        var token = req.user.token;
+        console.log(req.user)
+		res.redirect("http://localhost:3000?token=" + token);
+	}
+);
 module.exports = router;
